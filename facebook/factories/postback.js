@@ -10,6 +10,8 @@ const Factory = {
       var timeOfMessage = event.timestamp;
       var postback = event.postback;
       var payload = postback.payload;
+      
+      console.log(payload);
 
       if (postback.payload) {
         if (get_started.isGetStartedPayload(payload)) {

@@ -16,25 +16,15 @@ module.exports = {
             user.route = '/random?limitTo=[explicit]';
             user.askJoke().then((res) => {
                 sender.facebook(template_buttons.message({
-                    recipient: {
-                        id: senderId
-                    },
-                    message: {
-                        attachment: {
-                            type: 'template',
-                            payload: {
-                                template_type: 'button',
-                                text: res.value.joke,
-                                buttons: [
-                                    {
-                                        type: 'postback',
-                                        text: 'Another Explicit Joke',
-                                        payload: 'joke_explicit_payload'
-                                    }
-                                ]
-                            }
+                    recipientId: senderId,
+                    text: res.joke,
+                    buttons: [
+                        {
+                            type: 'postback',
+                            title: 'Another Explicit Joke',
+                            payload: 'joke_explicit_payload'
                         }
-                    }
+                    ]
                 }));
             }).catch((msg) => {
                 sender.facebook(template_text.message({
