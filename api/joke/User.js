@@ -20,7 +20,6 @@ class User extends Joke {
         return new Promise ((resolve, reject) => {
             client.hget(this._id, 'count', (err, count) => {
                 if (err) return reject(err);
-                if (! count) count = 0;
                 let updateCount = parseInt(count, 10) + 1;
                 let time = new Date().getTime();
                 client.hset(this._id, 'time', time);
@@ -34,6 +33,10 @@ class User extends Joke {
         return new Promise((resolve, reject) => {
             client.hget(this._id, 'count', (err, count) => {
                 if (err) return reject(err);
+                if (! count) {
+                    count = 0;
+                    client.hset(this._id, 'count', 0);
+                }
                 return resolve(count);
             });
         });
